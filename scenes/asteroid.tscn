@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1tx0e0hqnig1"]
+
+[ext_resource type="Texture2D" uid="uid://b8jv7ccy0q6c8" path="res://assests/asteroide.png" id="1_18df0"]
+[ext_resource type="Script" path="res://Scripts/objects.gd" id="1_c2qac"]
+
+[sub_resource type="Animation" id="Animation_a7abn"]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.46667, 2.33333, 2.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, -21), Vector2(-1, 550), Vector2(-1, 700), Vector2(-1, 1000)]
+}
+
+[sub_resource type="Animation" id="Animation_na4xg"]
+resource_name = "animation"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.76667, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, -21), Vector2(-1, 550), Vector2(-1, 700)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_we3vj"]
+_data = {
+"RESET": SubResource("Animation_a7abn"),
+"animation": SubResource("Animation_na4xg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uoybr"]
+size = Vector2(452.631, 463.578)
+
+[node name="asteroid" type="Node2D"]
+script = ExtResource("1_c2qac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Asteroide" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-1, -21)
+scale = Vector2(0.095, 0.0776569)
+texture = ExtResource("1_18df0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/Asteroide"]
+libraries = {
+"": SubResource("AnimationLibrary_we3vj")
+}
+autoplay = "RESET"
+
+[node name="Area2D" type="Area2D" parent="Sprite2D/Asteroide" groups=["asteroid", "enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Asteroide/Area2D"]
+position = Vector2(5.26315, 0)
+shape = SubResource("RectangleShape2D_uoybr")
+
+[connection signal="area_entered" from="Sprite2D/Asteroide/Area2D" to="." method="_on_area_2d_area_entered"]

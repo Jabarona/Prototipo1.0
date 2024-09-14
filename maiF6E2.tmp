@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8o06uqog0gwg"]
+
+[ext_resource type="PackedScene" uid="uid://3tsnbxlpqb8y" path="res://scenes/player.tscn" id="1_c56sa"]
+[ext_resource type="Script" path="res://player.gd" id="2_6ot6g"]
+
+[node name="main" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(432, 932)
+offset_left = 5.0
+offset_top = 12.0
+offset_right = 437.0
+offset_bottom = 944.0
+color = Color(0.00351917, 0.00351917, 0.00351917, 1)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_c56sa")]
+position = Vector2(202, 573)
+script = ExtResource("2_6ot6g")

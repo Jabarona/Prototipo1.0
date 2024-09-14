@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://3tsnbxlpqb8y"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_r52q5"]
+[ext_resource type="Texture2D" uid="uid://dekl6e51b2i62" path="res://assests/nave2.png" id="1_w5abs"]
+[ext_resource type="AudioStream" uid="uid://bsmw1m4nlp0re" path="res://sonidos/sonidoLaser.mp3" id="3_i1p4h"]
+[ext_resource type="AudioStream" uid="uid://bo8tveipsvbd0" path="res://sonidos/enemyImpact.mp3" id="4_qn53k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pyvx"]
+size = Vector2(1582.34, 1553.76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjaxm"]
+size = Vector2(54, 61)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_r52q5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+region_enabled = true
+region_rect = Rect2(100, 100, 100, 100)
+
+[node name="Nave2" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, 0.999999)
+scale = Vector2(0.0353906, 0.0405469)
+texture = ExtResource("1_w5abs")
+
+[node name="Area2D" type="Area2D" parent="Nave2" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nave2/Area2D"]
+position = Vector2(-7.24204e-05, -12.3314)
+shape = SubResource("RectangleShape2D_7pyvx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cjaxm")
+debug_color = Color(0.0566574, 0.580541, 0.792486, 0.42)
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="laser" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("3_i1p4h")
+volume_db = -50.0
+
+[node name="shipImpact" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("4_qn53k")
+volume_db = -30.0
+
+[connection signal="area_entered" from="Nave2/Area2D" to="." method="_on_area_2d_area_entered"]

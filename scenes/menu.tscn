@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyhoeh6columa"]
+
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_er2jl"]
+[ext_resource type="FontFile" uid="uid://cl3eworfpehxm" path="res://Orbitronio.ttf" id="2_6mcrb"]
+[ext_resource type="FontFile" uid="uid://d7w3ycdu7ly0" path="res://Exotica.ttf" id="3_i30jj"]
+[ext_resource type="AudioStream" uid="uid://bph4hpjck2s41" path="res://music/MenuMusic.wav" id="4_ptpnm"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_er2jl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 647.0
+color = Color(0.0524442, 0.0125103, 0.158315, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 301.0
+offset_top = 211.0
+offset_right = 902.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("2_6mcrb")
+theme_override_font_sizes/font_size = 67
+text = "Cumbia Estelar
+"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 498.0
+offset_top = 420.0
+offset_right = 645.0
+offset_bottom = 471.0
+theme_override_fonts/font = ExtResource("3_i30jj")
+theme_override_font_sizes/font_size = 25
+text = "JUGAR"
+
+[node name="music" type="Node2D" parent="."]
+
+[node name="menuMusic" type="AudioStreamPlayer2D" parent="music"]
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="music"]
+position = Vector2(569, 335)
+stream = ExtResource("4_ptpnm")
+volume_db = -30.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

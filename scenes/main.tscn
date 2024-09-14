@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8o06uqog0gwg"]
+
+[ext_resource type="PackedScene" uid="uid://3tsnbxlpqb8y" path="res://scenes/player.tscn" id="1_c56sa"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_ep12b"]
+[ext_resource type="PackedScene" uid="uid://c1tx0e0hqnig1" path="res://scenes/asteroid.tscn" id="3_ysw6m"]
+[ext_resource type="PackedScene" uid="uid://b1tryopl4gf24" path="res://scenes/EnemyShip.tscn" id="4_67wm7"]
+[ext_resource type="FontFile" uid="uid://d7w3ycdu7ly0" path="res://Exotica.ttf" id="5_3w3md"]
+[ext_resource type="AudioStream" uid="uid://roahydupbe8b" path="res://music/mainMusic.wav" id="6_8ys76"]
+[ext_resource type="AudioStream" uid="uid://bifprhibv8ekc" path="res://sonidos/shipImpact.mp3" id="7_r4gj8"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_ep12b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(432, 932)
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 430.0
+offset_bottom = 930.0
+color = Color(0.00351917, 0.00351917, 0.00351917, 1)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_c56sa")]
+position = Vector2(189, 900)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.45
+autostart = true
+
+[node name="asteroid" parent="." instance=ExtResource("3_ysw6m")]
+position = Vector2(76, -8)
+
+[node name="enemyShip" parent="." instance=ExtResource("4_67wm7")]
+position = Vector2(328, -9)
+
+[node name="hud" type="Node2D" parent="."]
+
+[node name="scored" type="Label" parent="hud"]
+offset_left = 288.0
+offset_right = 364.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("5_3w3md")
+theme_override_font_sizes/font_size = 20
+text = "SCORED:
+"
+
+[node name="points" type="Label" parent="hud"]
+offset_left = 384.0
+offset_right = 416.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("5_3w3md")
+theme_override_font_sizes/font_size = 20
+text = "0
+"
+
+[node name="damage" type="Label" parent="hud"]
+offset_left = 288.0
+offset_top = 40.0
+offset_right = 365.0
+offset_bottom = 68.0
+theme_override_fonts/font = ExtResource("5_3w3md")
+theme_override_font_sizes/font_size = 20
+text = "DAMAGE:
+"
+
+[node name="Dpoints" type="Label" parent="hud"]
+offset_left = 384.0
+offset_top = 40.0
+offset_right = 416.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("5_3w3md")
+theme_override_font_sizes/font_size = 20
+text = "0
+"
+
+[node name="music" type="Node2D" parent="."]
+
+[node name="mainMusic" type="AudioStreamPlayer2D" parent="music"]
+stream = ExtResource("6_8ys76")
+volume_db = -35.0
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="enemyImpact" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("7_r4gj8")
+volume_db = -30.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
